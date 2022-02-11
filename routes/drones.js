@@ -5,14 +5,36 @@ const DroneModel = require('../models/Drone.model');
 
 
 router.route('/drones/:id/edit')
-.get((req, res, next) => {
+.get((req, res) => {
   // Iteration #4: Update the drone
-  // ... your code here
+  const id = req.params.id;
+
+  DroneModel.findById(id)
+  .then((drone)=>{
+    res.render("drones/update-form.hbs", drone);
+  })
+  .catch((error) => {
+    console.log(`Error while finding the drone by id: ${error}`);
+    res.render("drones/update-form.hbs");
+  })
 })
-.post((req, res, next) => {
+.post((req, res) => {
   // Iteration #4: Update the drone
-  // ... your code here
-});
+  const id = req.params.id;
+
+  const name = req.body.name;
+  const propellers = req.body.propellers;
+  const maxSpeed = req.body.maxSpeed;
+
+  DroneModel.findByIdAndUpdate(id, {name, propellers, maxSpeed}, {new: true})
+  .then(editedDrone=>{
+    res.redirect("/drones");
+  })
+  .catch((error) => {
+    console.log(`Error while updating a new drone: ${error}`);
+    res.render("drones/update-form.hbs");
+  })
+})
 
 router.post('/drones/:id/delete', (req, res, next) => {
   // Iteration #5: Delete the drone
