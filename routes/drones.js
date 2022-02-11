@@ -69,7 +69,7 @@ router.route('/drones/create')
 });
 
 
-router.get('/drones', (req, res, next) => {
+router.get('/drones', (req, res) => {
   // Iteration #2: List the drones
   DroneModel.find()
   .then(drones=>{
