@@ -27,7 +27,7 @@ router.route('/drones/:id/edit')
   const maxSpeed = req.body.maxSpeed;
 
   DroneModel.findByIdAndUpdate(id, {name, propellers, maxSpeed}, {new: true})
-  .then(editedDrone=>{
+  .then(()=>{
     res.redirect("/drones");
   })
   .catch((error) => {
@@ -36,9 +36,17 @@ router.route('/drones/:id/edit')
   })
 })
 
-router.post('/drones/:id/delete', (req, res, next) => {
+router.post('/drones/:id/delete', (req, res) => {
   // Iteration #5: Delete the drone
-  // ... your code here
+  const id = req.params.id;
+
+  DroneModel.findByIdAndDelete(id)
+  .then(()=>{
+    res.redirect("/drones");
+  })
+  .catch((error) => {
+    console.log(`Error while deleting the drone: ${error}`);
+  })
 });
 
 router.route('/drones/create')
