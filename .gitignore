@@ -6,6 +6,7 @@ npm-debug.log
 
 # Environment Variables should NEVER be published
 # For learning purposes, we keep .env available for you
+# Should ignore the .env when commiting
 .env
 
 # For maintenance purposes - not best practice
